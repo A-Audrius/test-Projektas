@@ -7,28 +7,12 @@ import TVShows from "./components/TVShows.jsx";
 import Trending from "./components/Trending.jsx";
 import Recommended from "./components/Recommended.jsx";
 import Bookmarks from "./components/Bookmarks.jsx";
-import NotFound from "./components/NotFound.jsx";
-import { getAllData } from "./components/helpers/get";
+import NotFound from "./components/NotFound.jsx"
+import MoviesItems from "./components/MoviesItems.jsx";
 
 
 export default function App() {
 
-  const [users, setUsers] = useState([]);
-  const [update, setUpdate] = useState(0);
-  const [error, setError] = useState("");
-
-  const fetchData = async () => {
-    try {
-      const data = await getAllData();
-      setUsers(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-       fetchData();
-  }, [update]);  
 
   return (
     <>
@@ -36,11 +20,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies" element={<Movies itemsList={contents}/>} />
         <Route path="/tvshows" element={<TVShows />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      {/* <MoviesItems/> */}
     </>
   );
 }
